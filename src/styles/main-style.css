@@ -1,0 +1,89 @@
+body {
+  background-color: #f2f6fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  max-height: fit-content;
+}
+
+div.search-zone {
+  display: flex;
+  flex-direction: column;
+  padding: 1% 25% 0 25%;
+}
+
+div.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div.cities-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4px;
+  width: 84%;
+  padding: 0 4px 0 4px;
+}
+
+a {
+  text-decoration: none;
+  color: #939aa9;
+}
+
+a:hover {
+  color: #178bbf;
+  text-shadow: 0px 0px 2px #e3e9ee;
+}
+
+label.search-label {
+  display: flex;
+  margin: 4px 2px;
+  color: #939aa9;
+  font-style: italic;
+  font-size: small;
+}
+
+input[type="search"] {
+  background-color: #e3e9ee;
+  border-color: #ffa726;
+  color: #5a6275;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  height: 40px;
+  width: 85%;
+  padding-left: 10px;
+  outline: none;
+}
+
+input[type="submit"] {
+  color: #e3e9ee;
+  background-color: #ffa726;
+  border-style: none;
+  border-width: 1px;
+  border-radius: 5px;
+  height: 40px;
+  width: 14.5%;
+  font-size: 20px;
+}
+
+input[type="search"]:focus {
+  border-width: 2px;
+  box-shadow: 0px 0px 7px #939aa9;
+}
+
+input[type="submit"]:hover {
+  background-color: #fc9700;
+  box-shadow: 0px 0px 7px #939aa9;
+}
+
+footer {
+  color: #939aa9;
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
+  top: 0px;
+  padding-top: 2%;
+  font-family: "Inconsolata", monospace;
+}
