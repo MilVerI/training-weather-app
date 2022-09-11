@@ -5,10 +5,12 @@ let setMode = document.querySelector("#tempToggler");
 let inputCityName;
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 
+//визначення поточного місцяположення і передача його у функцію handlePosition
 function infoOnCurrentLocation() {
   navigator.geolocation.getCurrentPosition(handlePosition);
 }
 
+//функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
 function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -17,6 +19,7 @@ function handlePosition(position) {
   axios.get(apiByGeo).then(showCurrentGeoData);
 }
 
+//показ прогнозу на поточний день для поточної локації користувача
 function showCurrentGeoData(response) {
   console.log(response.data.main.temp);
   console.log(response.data.name);
@@ -72,6 +75,7 @@ function setDateTime(day, time) {
   thisTime.innerHTML = time;
 }
 
+//фукнція отримання назви міста з пошукового рядка
 function letCity(event) {
   event.preventDefault();
   let inputCity = document.querySelector("#search-city-name");
@@ -83,6 +87,7 @@ function letCity(event) {
   }
 }
 
+//функція зміни шкали для температури з Цельсія на Фаренгейти і навпаким; потребує покращення
 function changeTempMode() {
   if (setMode.getAttribute("class") === "celsius") {
     let temp1 = document.querySelector("#firstDayTemp");
@@ -159,8 +164,15 @@ function changeTempMode() {
   }
 }
 
+//зміна шкали температур на стандартну (Цельсії), отримання назви міста з пошукового рядка
+// і перехід до виконання showTodayTemp
 function getCityData(cityName) {
   let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
+
+  if (setMode.getAttribute("class") === "fahrenheit") {
+    changeTempMode();
+  }
+
   axios
     .get(apiCity)
     .then(showTodayTemp)
@@ -169,6 +181,7 @@ function getCityData(cityName) {
     });
 }
 
+//зміна назви міста та температури на сторінці для поточного дня
 function showTodayTemp(response) {
   let tempData = Math.round(response.data.main.temp);
   let temp = document.querySelector("#firstDayTemp");
