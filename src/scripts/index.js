@@ -31,6 +31,7 @@ function showCurrentGeoData(response) {
   city.innerHTML = `${response.data.name}`;
 }
 
+//функція конвертації поточного дня: назви дня тижня, місяця, дати
 function formatDay1(date) {
   let days = [
     "Sunday",
@@ -55,6 +56,7 @@ function formatDay1(date) {
   }
 }
 
+//функція конвертації поточного часу після відкриття сторінки юзером
 function formatTime(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -172,18 +174,39 @@ function getCityData(cityName) {
   if (setMode.getAttribute("class") === "fahrenheit") {
     changeTempMode();
   }
+debugger;
 
-  axios
-    .get(apiCity)
-    .then(showTodayTemp)
-    .catch((error) => {
-      alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
-    });
-}
+axios
+  .get(apiCity)
+  .then((response) => {
+    localStorage.setItem("apiData", JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
+  });
 
+let data = JSON.parse(localStorage.getItem("apiData"));
+//console.log(data);
+
+showTodayTemp(data);
+datetimeInCity(data);
+
+ // axios
+   // .get(apiCity)
+   // .then(showTodayTemp)
+    // .catch((error) => {
+    //   alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
+    // })
+  }
+
+  function datetimeInCity(data) {
+    console.log(data.dt * 1000);
+  };
+  
 //зміна назви міста та температури на сторінці для поточного дня
-function showTodayTemp(response) {
-  let tempData = Math.round(response.data.main.temp);
+function showTodayTemp(data) {
+  //formatDay1(response.data.dt);
+  let tempData = Math.round(data.main.temp);
   let temp = document.querySelector("#firstDayTemp");
   let city = document.querySelector("#current-city");
   temp.innerHTML = `${tempData}`;
