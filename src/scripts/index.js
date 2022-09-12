@@ -15,7 +15,7 @@ function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
 
-  window.location.href = `/result?lat=${lat}&lon=${lon}`;
+  window.location.href = `/results?lat=${lat}&lon=${lon}`;
   //   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
   //   axios.get(apiByGeo).then(showCurrentGeoData);

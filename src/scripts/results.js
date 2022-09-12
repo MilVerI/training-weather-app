@@ -11,13 +11,11 @@ let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 // }
 
 // //функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
-// function handlePosition(position) {
-//   let lat = position.coords.latitude;
-//   let lon = position.coords.longitude;
-//   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+function handlePosition(lat, lon) {
+  let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-//   axios.get(apiByGeo).then(showCurrentGeoData);
-// }
+  axios.get(apiByGeo).then(showCurrentGeoData);
+}
 
 //показ прогнозу на поточний день для поточної локації користувача
 function showCurrentGeoData(response) {
@@ -215,9 +213,9 @@ function getCityNameBySearchParams() {
 function getCoorsBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
   const lat = urlParams.get('lat');
-  const lng = urlParams.get('lng');
-  if (!lat || !lng) return false;
-  return { lng, lat };
+  const lon = urlParams.get('lon');
+  if (!lat || !lon) return false;
+  return { lat, lon };
 }
 
 //Проверяем параметри строки
@@ -227,16 +225,17 @@ function startWithParams() {
   if (city) {
     //Тут запускаем функцию по городу
   } else if (coords) {
-    //Тут делаем запрос по координатам
+    handlePosition(coords.lat, coords.lon);
   } else {
     //редиректим на титуьлную
-    window.history.replace('/');
+    window.location.href = "/";
   }
 }
 
 formatDay1(dateTime);
 formatTime(dateTime);
 setDateTime(formattedDay1, formattedTime);
+startWithParams();
 let searchForm = document.querySelector("#searching");
 searchForm.addEventListener("submit", letCity);
 setMode.addEventListener("click", changeTempMode);
