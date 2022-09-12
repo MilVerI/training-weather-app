@@ -16,9 +16,6 @@ function handlePosition(position) {
   let lon = position.coords.longitude;
 
   window.location.href = `/results?lat=${lat}&lon=${lon}`;
-  //   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-
-  //   axios.get(apiByGeo).then(showCurrentGeoData);
 }
 
 //показ прогнозу на поточний день для поточної локації користувача
@@ -64,7 +61,7 @@ function letCity(event) {
   let inputCity = document.querySelector("#search-city-name");
   inputCityName = inputCity.value;
   if (inputCityName) {
-    getCityData(inputCityName);
+    window.location.href = `/results?city=${inputCityName}`;;
   } else {
     alert("Enter a city!");
   }

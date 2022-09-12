@@ -1,3 +1,5 @@
+//https://main--gorgeous-otter-5cc80c.netlify.app/results?lat=50.4197225&lon=30.6396344
+
 let dateTime = new Date();
 let formattedDay1;
 let formattedTime;
@@ -21,7 +23,7 @@ function handlePosition(lat, lon) {
 function showCurrentGeoData(response) {
   console.log(response.data.main.temp);
   console.log(response.data.name);
-  alert(`Your current position is "${response.data.name}"`);
+  //alert(`Your current position is "${response.data.name}"`);
   let tempData = Math.round(response.data.main.temp);
   let temp = document.querySelector("#firstDayTemp");
   let city = document.querySelector("#current-city");
@@ -173,19 +175,20 @@ function getCityData(cityName) {
     changeTempMode();
   }
 
-  axios
+  return axios
     .get(apiCity)
     .then((response) => {
       localStorage.setItem("apiData", JSON.stringify(response.data));
     })
     .catch((error) => {
       alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
+    })
+    .finally(() => {
+      let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
+    
+      showTodayTemp(todayResponsData);
+      //datetimeInCity(todayResponsData);
     }); //потрібно більш чітко відловлювати помилки
-
-  let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
-
-  showTodayTemp(todayResponsData);
-  //datetimeInCity(todayResponsData);
 }
 
 //функція визначення дати для міста з пошуку
@@ -200,8 +203,9 @@ function showTodayTemp(data) {
   let temp = document.querySelector("#firstDayTemp");
   let city = document.querySelector("#current-city");
   temp.innerHTML = `${tempData}`;
-  city.innerHTML = inputCityName;
+  city.innerHTML = data.name;
 }
+
 //Получение параметров
 function getCityNameBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -223,7 +227,9 @@ function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
   if (city) {
-    //Тут запускаем функцию по городу
+    getCityData(city).then(function(){
+      showTodayTemp();
+    });
   } else if (coords) {
     handlePosition(coords.lat, coords.lon).then(function(){
       formatDay1(dateTime);
