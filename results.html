@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌏 Weather Worldwide</title>
+    <link rel="stylesheet" href="src/styles/results.css">
+    <link rel="stylesheet" href="src/styles/main-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&family=Overpass:ital,wght@0,500;1,400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="search-zone">
+        <form id="searching">
+            <label for="search" class="search-label">You can view the forecast for today and the next 5 days</label>
+            <div class="search-bar">
+                <input type="search" class="search" placeholder="Enter a city..." id="search-city-name" value="">
+                <input type="submit" class="search-button" value="Search" label="Search" id="submit-city">
+            </div>
+        </form>
+        <div class="cities-search">
+            <a href="">Kyiv</a>
+            <a href="">Lviv</a>
+            <a href="">Zhytomyr</a>
+            <a href="">Chernihiv</a>
+            <a href="">Poltava</a>
+        </div>
+    </div>
+    <div class="results">
+        <div class="today">
+            <div class="today-temp">
+                <span id="firstDayTemp">t</span><br />
+                <span class="switchTemp">
+                    <span class="celsius" id="tempToggler" title="Show in Celsius"><strong>°C</strong></span>
+                </span>
+            </div>
+            <div class="today-info">
+                <h2>today</h2>
+                <h3 id="current-city">City</h3>
+                <h4><span id="firstDayName">Day, dd/mm</span><span id="time"> | hh:mm</span></h4>
+                <span class="weather-info">Mostly cloudy ☁</span>
+                <span class="humidity">Humidity 78%</span>
+            </div>
+        </div>
+        <div class="forecast">
+            <div class="forecast-info">
+                <img class="weather-icons" src="src/files/cloudy-svgrepo-com.svg" alt="Mostly cloudy">
+                <div class="forecast-day-info">
+                    <h5 id="2day-name">Tue, 12/05</h5>
+                    <div class="forecast-weather-info">Mostly cloudy | Humidity 78%</div>
+                </div>
+                <div class="forecast-temperature" id="secondDayTemp">14</div>
+                <span class="symbol">°</span>
+            </div>
+            <div class="forecast-info">
+                <img class="weather-icons" src="src/files/cloudy-svgrepo-com.svg" alt="Mostly cloudy">
+                <div class="forecast-day-info">
+                    <h5 id="3day-name">Wed, 13/05</h5>
+                    <div class="forecast-weather-info">Mostly cloudy | Humidity 78%</div>
+                </div>
+                <div class="forecast-temperature" id="thirdDayTemp">14</div>
+                <span class="symbol">°</span>
+            </div>
+            <div class="forecast-info">
+                <img class="weather-icons" src="src/files/cloudy-svgrepo-com.svg" alt="Mostly cloudy">
+                <div class="forecast-day-info">
+                    <h5 id="4day-name">Thu, 14/05</h5>
+                    <div class="forecast-weather-info">Mostly cloudy | Humidity 78%</div>
+                </div>
+                <div class="forecast-temperature" id="fourthDayTemp">14</div>
+                <span class="symbol">°</span>
+            </div>
+            <div class="forecast-info">
+                <img class="weather-icons" src="src/files/sun-svgrepo-com.svg" alt="Mostly cloudy">
+                <div class="forecast-day-info">
+                    <h5 id="5day-name">Fri, 15/05</h5>
+                    <div class="forecast-weather-info">Sunny | Humidity 58%</div>
+                </div>
+                <div class="forecast-temperature" id="fifthDayTemp">18</div>
+                <span class="symbol">°</span>
+            </div>
+            <div class="forecast-info">
+                <img class="weather-icons" src="src/files/tornado-svgrepo-com.svg" alt="Mostly cloudy">
+                <div class="forecast-day-info">
+                    <h5 id="6day-name">Sat, 16/05</h5>
+                    <div class="forecast-weather-info">Foggy | Humidity 78%</div>
+                </div>
+                <div class="forecast-temperature" id="sixthDayTemp">15</div>
+                <span class="symbol">°</span>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a href="https://github.com/MilVerI/training-weather-app" target="_blank" class="github-btn">Open-source code</a> by Mylevska V.
+        <br />
+        2022
+    </footer>
+    <script src="src/scripts/results.js">
+    </script>
+</body>
+
+</html>
