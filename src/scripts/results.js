@@ -3,24 +3,23 @@
 let dateTime = new Date();
 let formattedDay1;
 let formattedTime;
-let setMode = document.querySelector("#tempToggler");
 let inputCityName;
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 
 // //визначення поточного місцяположення і передача його у функцію handlePosition
 // function infoOnCurrentLocation() {
-//   navigator.geolocation.getCurrentPosition(handlePosition);
-// }
-
-// //функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
-function handlePosition(lat, lon) {
-  let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
- 
-  return axios.get(apiByGeo).then(showCurrentGeoData);
-}
-
-//показ прогнозу на поточний день для поточної локації користувача
-function showCurrentGeoData(response) {
+  //   navigator.geolocation.getCurrentPosition(handlePosition);
+  // }
+  
+  // //функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
+  function handlePosition(lat, lon) {
+    let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    
+    return axios.get(apiByGeo).then(showCurrentGeoData);
+  }
+  
+  //показ прогнозу на поточний день для поточної локації користувача
+  function showCurrentGeoData(response) {
   console.log(response.data.main.temp);
   console.log(response.data.name);
   //alert(`Your current position is "${response.data.name}"`);
@@ -42,7 +41,7 @@ function formatDay1(date) {
     "Friday",
     "Saturday",
   ];
-
+  
   let currentDay = days[date.getDay()];
   let currentMonth = date.getMonth() + 1;
   let currentDate = date.getDate();
@@ -60,7 +59,7 @@ function formatDay1(date) {
 function formatTime(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes();
-
+  
   if (minutes < 10) {
     formattedTime = `${hours}:0${minutes}`;
     return formattedTime;
@@ -85,7 +84,9 @@ function letCity(event) {
   if (inputCityName) {
     getCityData(inputCityName);
   } else {
-    alert("Enter a city!");
+    let error = document.querySelector("#error-container");
+    error.innerHTML = "Enter a city!";
+    //alert("Enter a city!");
   }
 }
 
@@ -98,11 +99,11 @@ function changeTempMode() {
     let temp4 = document.querySelector("#fourthDayTemp");
     let temp5 = document.querySelector("#fifthDayTemp");
     let temp6 = document.querySelector("#sixthDayTemp");
-
+    
     let temp1Value = temp1.innerHTML;
     let farTemp1 = Math.round(temp1Value * 1.8 + 32);
     temp1.innerHTML = `${farTemp1}`;
-
+    
     let temp2Value = temp2.innerHTML;
     let farTemp2 = Math.round(temp2Value * 1.8 + 32);
     temp2.innerHTML = `${farTemp2}`;
@@ -110,19 +111,19 @@ function changeTempMode() {
     let temp3Value = temp3.innerHTML;
     let farTemp3 = Math.round(temp3Value * 1.8 + 32);
     temp3.innerHTML = `${farTemp3}`;
-
+    
     let temp4Value = temp4.innerHTML;
     let farTemp4 = Math.round(temp4Value * 1.8 + 32);
     temp4.innerHTML = `${farTemp4}`;
-
+    
     let temp5Value = temp5.innerHTML;
     let farTemp5 = Math.round(temp5Value * 1.8 + 32);
     temp5.innerHTML = `${farTemp5}`;
-
+    
     let temp6Value = temp6.innerHTML;
     let farTemp6 = Math.round(temp6Value * 1.8 + 32);
     temp6.innerHTML = `${farTemp6}`;
-
+    
     setMode.innerHTML = "°F";
     setMode.setAttribute("class", "fahrenheit");
   } else {
@@ -133,19 +134,19 @@ function changeTempMode() {
       let temp4 = document.querySelector("#fourthDayTemp");
       let temp5 = document.querySelector("#fifthDayTemp");
       let temp6 = document.querySelector("#sixthDayTemp");
-
+      
       let temp1Value = temp1.innerHTML;
       let celsTemp1 = Math.round((temp1Value - 32) / 1.8);
       temp1.innerHTML = `${celsTemp1}`;
-
+      
       let temp2Value = temp2.innerHTML;
       let celsTemp2 = Math.round((temp2Value - 32) / 1.8);
       temp2.innerHTML = `${celsTemp2}`;
-
+      
       let temp3Value = temp3.innerHTML;
       let celsTemp3 = Math.round((temp3Value - 32) / 1.8);
       temp3.innerHTML = `${celsTemp3}`;
-
+      
       let temp4Value = temp4.innerHTML;
       let celsTemp4 = Math.round((temp4Value - 32) / 1.8);
       temp4.innerHTML = `${celsTemp4}`;
@@ -153,11 +154,11 @@ function changeTempMode() {
       let temp5Value = temp5.innerHTML;
       let celsTemp5 = Math.round((temp5Value - 32) / 1.8);
       temp5.innerHTML = `${celsTemp5}`;
-
+      
       let temp6Value = temp6.innerHTML;
       let celsTemp6 = Math.round((temp6Value - 32) / 1.8);
       temp6.innerHTML = `${celsTemp6}`;
-
+      
       setMode.innerHTML = "°C";
       setMode.setAttribute("class", "celsius");
     } else {
@@ -170,30 +171,32 @@ function changeTempMode() {
 // і перехід до виконання showTodayTemp
 function getCityData(cityName) {
   let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
-
+  
   if (setMode.getAttribute("class") === "fahrenheit") {
     changeTempMode();
   }
-
+  
   return axios
-    .get(apiCity)
-    .then((response) => {
-      localStorage.setItem("apiData", JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
-    })
-    .finally(() => {
-      let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
+  .get(apiCity)
+  .then((response) => {
+    localStorage.setItem("apiData", JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    let errorText = document.querySelector("#error-container");
+    errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
+    //alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
+  })
+  .finally(() => {
+    let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
     
       showTodayTemp(todayResponsData);
       datetimeInCity(todayResponsData);
     }); //потрібно більш чітко відловлювати помилки
-}
-
-//функція визначення дати для міста з пошуку
-function datetimeInCity(data) {
-  console.log(data.dt);
+  }
+  
+  //функція визначення дати для міста з пошуку
+  function datetimeInCity(data) {
+    console.log(data.dt);
   let unix_timestamp = data.dt;
   // Create a new JavaScript Date object based on the timestamp
   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -204,10 +207,10 @@ function datetimeInCity(data) {
   var minutes = "0" + date.getMinutes();
   // Seconds part from the timestamp
   var seconds = "0" + date.getSeconds();
-
+  
   var formattedTime =
-    hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-
+  hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  
   console.log(formattedTime);
 }
 
@@ -224,15 +227,15 @@ function showTodayTemp(data) {
 //Получение параметров
 function getCityNameBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
-  const city = urlParams.get('city');
+  const city = urlParams.get("city");
   if (!city) return false;
   return city;
 }
 
 function getCoorsBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
-  const lat = urlParams.get('lat');
-  const lon = urlParams.get('lon');
+  const lat = urlParams.get("lat");
+  const lon = urlParams.get("lon");
   if (!lat || !lon) return false;
   return { lat, lon };
 }
@@ -242,11 +245,11 @@ function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
   if (city) {
-    getCityData(city).then(function(){
+    getCityData(city).then(function () {
       showTodayTemp();
     });
   } else if (coords) {
-    handlePosition(coords.lat, coords.lon).then(function(){
+    handlePosition(coords.lat, coords.lon).then(function () {
       formatDay1(dateTime);
       formatTime(dateTime);
       setDateTime(formattedDay1, formattedTime);
@@ -259,5 +262,8 @@ function startWithParams() {
 
 startWithParams();
 let searchForm = document.querySelector("#searching");
+let setMode = document.querySelector("#tempToggler");
+let serachByCurrentPosition = document.querySelector("#serach-by-position");
 searchForm.addEventListener("submit", letCity);
 setMode.addEventListener("click", changeTempMode);
+serachByCurrentPosition.addEventListener("click", infoOnCurrentLocation);
