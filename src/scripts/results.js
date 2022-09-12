@@ -13,8 +13,8 @@ let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 // //функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
 function handlePosition(lat, lon) {
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-
-  axios.get(apiByGeo).then(showCurrentGeoData);
+ 
+  return axios.get(apiByGeo).then(showCurrentGeoData);
 }
 
 //показ прогнозу на поточний день для поточної локації користувача
@@ -225,16 +225,17 @@ function startWithParams() {
   if (city) {
     //Тут запускаем функцию по городу
   } else if (coords) {
-    handlePosition(coords.lat, coords.lon);
+    handlePosition(coords.lat, coords.lon).then(function(){
+      formatDay1(dateTime);
+      formatTime(dateTime);
+      setDateTime(formattedDay1, formattedTime);
+    });
   } else {
     //редиректим на титуьлную
     window.location.href = "/";
   }
 }
 
-formatDay1(dateTime);
-formatTime(dateTime);
-setDateTime(formattedDay1, formattedTime);
 startWithParams();
 let searchForm = document.querySelector("#searching");
 searchForm.addEventListener("submit", letCity);
