@@ -266,7 +266,7 @@ function startWithParams() {
       handlePositionFromIndex(coords.lat, coords.lon).then(function () {
         formatDay1(dateTime);
         formatTime(dateTime);
-        setDateTime(formattedDay1, formattedTime);
+        setDateTime(formattedDay1, formattedTime)
       });
     } else {
       //переспрямувати на індекс
@@ -274,6 +274,7 @@ function startWithParams() {
     }
   }
 }
+
 
 startWithParams();
 let searchForm = document.getElementById("searching");
