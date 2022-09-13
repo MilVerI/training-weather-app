@@ -12,11 +12,13 @@ let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
    navigator.geolocation.getCurrentPosition(handlePosition);
  }
 
-// //функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
-function handlePosition(lat, lon) {
+// для results: використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
+function handlePosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-  return axios.get(apiByGeo).then(showCurrentGeoData);
+  axios.get(apiByGeo).then(showCurrentGeoData);
 }
 
 //показ прогнозу на поточний день для поточної локації користувача

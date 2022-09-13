@@ -9,7 +9,7 @@ function infoOnCurrentLocation() {
   navigator.geolocation.getCurrentPosition(handlePosition);
 }
 
-//функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
+//для index: для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
 function handlePosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
