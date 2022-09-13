@@ -264,9 +264,8 @@ function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
   if (city) {
-    getCityData(city).then(function () {
-      showTodayTemp();
-    });
+    getCityData(city)
+    //.then(function () { showTodayTemp(); });
   } else if (coords) {
     handlePosition(coords.lat, coords.lon).then(function () {
       formatDay1(dateTime);
