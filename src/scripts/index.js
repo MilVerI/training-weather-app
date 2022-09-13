@@ -42,8 +42,8 @@ function getCityData(cityName) {
   axios
     .get(apiCity)
     // .then((response) => {
-    //   localStorage.setItem("apiData", JSON.stringify(response.data));
-    // })
+      //   localStorage.setItem("apiData", JSON.stringify(response.data));
+      // })
     .catch(
       function (error) {
         if (error.response) {
@@ -68,10 +68,10 @@ function getCityData(cityName) {
       //   errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
       // }
     ) //потрібно більш чітко відловлювати помилки
-    .finally(() => {
+    .finally((response) => {
       // let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
 
-      showTodayTemp;
+      showTodayTemp(response);
       //datetimeInCity(todayResponsData);
     }); 
 }
