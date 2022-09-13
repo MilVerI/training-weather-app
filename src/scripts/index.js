@@ -20,12 +20,12 @@ function handlePosition(position) {
 //фукнція отримання назви міста з пошукового рядка
 function letCity(event) {
   event.preventDefault();
-  let inputCity = document.getElementsById("search-city-name");
+  let inputCity = document.getElementById("search-city-name");
   inputCityName = inputCity.value;
   if (inputCityName) {
     window.location.href = `/results?city=${inputCityName}`;
   } else {
-    let errorText = document.getElementsById("error-container-for-search");
+    let errorText = document.getElementById("error-container-for-search");
     errorText.innerHTML = "Enter the city name to get results";
   }
 }
@@ -45,7 +45,7 @@ function getCityData(cityName) {
       localStorage.setItem("apiData", JSON.stringify(response.data));
     })
     .catch((error) => {
-      let errorText = document.getElementsById("error-container-for-search");
+      let errorText = document.getElementById("error-container-for-search");
       errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
     }); //потрібно більш чітко відловлювати помилки
 
@@ -55,7 +55,7 @@ function getCityData(cityName) {
   //datetimeInCity(todayResponsData);
 }
 
-let searchForm = document.getElementsById("searching");
-let serachByCurrentPosition = document.getElementsById("serach-by-position");
+let searchForm = document.getElementById("searching");
+let serachByCurrentPosition = document.getElementById("serach-by-position");
 searchForm.addEventListener("submit", letCity);
 serachByCurrentPosition.addEventListener("click", infoOnCurrentLocation);

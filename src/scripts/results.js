@@ -23,8 +23,8 @@ function showCurrentGeoData(response) {
   console.log(response.data.main.temp);
   console.log(response.data.name);
   let tempData = Math.round(response.data.main.temp);
-  let temp = document.getElementsById("firstDayTemp");
-  let city = document.getElementsById("current-city");
+  let temp = document.getElementById("firstDayTemp");
+  let city = document.getElementById("current-city");
   temp.innerHTML = `${tempData}`;
   city.innerHTML = `${response.data.name}`;
 }
@@ -69,16 +69,16 @@ function formatTime(date) {
 }
 
 function setDateTime(day, time) {
-  let thisDay = document.getElementsById("firstDayName");
+  let thisDay = document.getElementById("firstDayName");
   thisDay.innerHTML = day;
-  let thisTime = document.getElementsById("time");
+  let thisTime = document.getElementById("time");
   thisTime.innerHTML = time;
 }
 
 //фукнція отримання назви міста з пошукового рядка
 function letCity(event) {
   event.preventDefault();
-  let inputCity = document.getElementsById("search-city-name");
+  let inputCity = document.getElementById("search-city-name");
   inputCityName = inputCity.value;
   if (inputCityName) {
     getCityData(inputCityName);
@@ -91,12 +91,12 @@ function letCity(event) {
 //функція зміни шкали для температури з Цельсія на Фаренгейти і навпаким; потребує покращення
 function changeTempMode() {
   if (setMode.getAttribute("class") === "celsius") {
-    let temp1 = document.getElementsById("firstDayTemp");
-    let temp2 = document.getElementsById("secondDayTemp");
-    let temp3 = document.getElementsById("thirdDayTemp");
-    let temp4 = document.getElementsById("fourthDayTemp");
-    let temp5 = document.getElementsById("fifthDayTemp");
-    let temp6 = document.getElementsById("sixthDayTemp");
+    let temp1 = document.getElementById("firstDayTemp");
+    let temp2 = document.getElementById("secondDayTemp");
+    let temp3 = document.getElementById("thirdDayTemp");
+    let temp4 = document.getElementById("fourthDayTemp");
+    let temp5 = document.getElementById("fifthDayTemp");
+    let temp6 = document.getElementById("sixthDayTemp");
 
     let temp1Value = temp1.innerHTML;
     let farTemp1 = Math.round(temp1Value * 1.8 + 32);
@@ -126,12 +126,12 @@ function changeTempMode() {
     setMode.setAttribute("class", "fahrenheit");
   } else {
     if (setMode.getAttribute("class") === "fahrenheit") {
-      let temp1 = document.getElementsById("firstDayTemp");
-      let temp2 = document.getElementsById("secondDayTemp");
-      let temp3 = document.getElementsById("thirdDayTemp");
-      let temp4 = document.getElementsById("#fourthDayTemp");
-      let temp5 = document.getElementsById("fifthDayTemp");
-      let temp6 = document.getElementsById("sixthDayTemp");
+      let temp1 = document.getElementById("firstDayTemp");
+      let temp2 = document.getElementById("secondDayTemp");
+      let temp3 = document.getElementById("thirdDayTemp");
+      let temp4 = document.getElementById("fourthDayTemp");
+      let temp5 = document.getElementById("fifthDayTemp");
+      let temp6 = document.getElementById("sixthDayTemp");
 
       let temp1Value = temp1.innerHTML;
       let celsTemp1 = Math.round((temp1Value - 32) / 1.8);
@@ -180,7 +180,7 @@ function getCityData(cityName) {
       localStorage.setItem("apiData", JSON.stringify(response.data));
     })
     .catch((error) => {
-      let errorText = document.getElementsById("error-container-for-search");
+      let errorText = document.getElementById("error-container-for-search");
       errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
     })
     .finally(() => {
@@ -215,8 +215,8 @@ function datetimeInCity(data) {
 function showTodayTemp(data) {
   //formatDay1(response.data.dt);
   let tempData = Math.round(data.main.temp);
-  let temp = document.getElementsById("firstDayTemp");
-  let city = document.getElementsById("current-city");
+  let temp = document.getElementById("firstDayTemp");
+  let city = document.getElementById("current-city");
   temp.innerHTML = `${tempData}`;
   city.innerHTML = data.name;
 }
@@ -259,9 +259,9 @@ function startWithParams() {
 }
 
 startWithParams();
-let searchForm = document.getElementsById("searching");
-let setMode = document.getElementsById("tempToggler");
-let serachByCurrentPosition = document.getElementsById("serach-by-position");
+let searchForm = document.getElementById("searching");
+let setMode = document.getElementById("tempToggler");
+let serachByCurrentPosition = document.getElementById("serach-by-position");
 searchForm.addEventListener("submit", letCity);
 setMode.addEventListener("click", changeTempMode);
 serachByCurrentPosition.addEventListener("click", infoOnCurrentLocation);
