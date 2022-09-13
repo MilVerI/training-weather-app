@@ -8,9 +8,9 @@ let setMode = document.getElementById("tempToggler");
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 
 // //визначення поточного місцяположення і передача його у функцію handlePosition
-// function infoOnCurrentLocation() {
-//   navigator.geolocation.getCurrentPosition(handlePosition);
-// }
+ function infoOnCurrentLocation() {
+   navigator.geolocation.getCurrentPosition(handlePosition);
+ }
 
 // //функція для використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
 function handlePosition(lat, lon) {
