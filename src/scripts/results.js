@@ -8,9 +8,9 @@ let setMode = document.getElementById("tempToggler");
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 
 // //визначення поточного місцяположення і передача його у функцію handlePosition
- function infoOnCurrentLocation() {
-   navigator.geolocation.getCurrentPosition(handlePositionForResults);
- }
+function infoOnCurrentLocation() {
+  navigator.geolocation.getCurrentPosition(handlePositionForResults);
+}
 
 // для results: використання поточних широти і довготи для отримання даних про сьогоднішній прогноз, і передача даних функції showCurrentGeoData
 function handlePositionForResults(position) {
@@ -21,7 +21,7 @@ function handlePositionForResults(position) {
   axios.get(apiByGeo).then(showCurrentGeoData);
 }
 
-function handlePositionFromIndex(lat,lon) {
+function handlePositionFromIndex(lat, lon) {
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
   axios.get(apiByGeo).then(showCurrentGeoData);
@@ -183,43 +183,29 @@ function getCityData(cityName) {
     changeTempMode();
   }
 
-  return (
-    axios
-      .get(apiCity)
-      // .then((response) => {
-      //   localStorage.setItem("apiData", JSON.stringify(response.data));
-      // })
-      .catch(
-        function (error) {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        }
-        //   (error) => {
-        //   let errorText = document.getElementById("error-container-for-search");
-        //   errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
-        // }
-      )
-      .finally((response) => {
-        // let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
-
-        showTodayTemp(response);
-        //datetimeInCity(todayResponsData);
-      })
-  ); //потрібно більш чітко відловлювати помилки
+  return axios
+    .get(apiCity)
+    .then((response) => {
+      showTodayTemp(response);
+    })
+    .catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }); //потрібно більш чітко відловлювати помилки
 }
 
 //функція визначення дати для міста з пошуку
@@ -274,10 +260,10 @@ function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
   if (city) {
-    getCityData(city)
+    getCityData(city);
     //.then(function () { showTodayTemp(); });
   } else if (coords) {
-    handlePositionFromIndex(coords.lat, coords.lon).then(function() {
+    handlePositionFromIndex(coords.lat, coords.lon).then(() => {
       formatDay1(dateTime);
       formatTime(dateTime);
       setDateTime(formattedDay1, formattedTime);

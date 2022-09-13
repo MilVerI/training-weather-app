@@ -32,49 +32,50 @@ function letCity(event) {
 
 //зміна шкали температур на стандартну (Цельсії), отримання назви міста з пошукового рядка
 // і перехід до виконання showTodayTemp
-function getCityData(cityName) {
-  let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
+// function getCityData(cityName) {
+//   let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
-  if (setMode.getAttribute("class") === "fahrenheit") {
-    changeTempMode();
-  }
+//   if (setMode.getAttribute("class") === "fahrenheit") {
+//     changeTempMode();
+//   }
 
-  axios
-    .get(apiCity)
-    // .then((response) => {
-      //   localStorage.setItem("apiData", JSON.stringify(response.data));
-      // })
-    .catch(
-      function (error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
-      }
-      //   (error) => {
-      //   let errorText = document.getElementById("error-container-for-search");
-      //   errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
-      // }
-    ) //потрібно більш чітко відловлювати помилки
-    .finally((response) => {
-      // let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
+//   axios
+//     .get(apiCity)
+//     // .then((response) => {
+//       //   localStorage.setItem("apiData", JSON.stringify(response.data));
+//       // })
+//     .catch(
+//       function (error) {
+//         if (error.response) {
+//           // The request was made and the server responded with a status code
+//           // that falls out of the range of 2xx
+//           console.log(error.response.data);
+//           console.log(error.response.status);
+//           console.log(error.response.headers);
+//         } else if (error.request) {
+//           // The request was made but no response was received
+//           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+//           // http.ClientRequest in node.js
+//           console.log(error.request);
+//         } else {
+//           // Something happened in setting up the request that triggered an Error
+//           console.log("Error", error.message);
+//         }
+//         console.log(error.config);
+//       }
+//       //   (error) => {
+//       //   let errorText = document.getElementById("error-container-for-search");
+//       //   errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
+//       // }
+//     ) //потрібно більш чітко відловлювати помилки
+//     .finally(
+//       function (response) {
+//       // let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
 
-      showTodayTemp(response);
-      //datetimeInCity(todayResponsData);
-    }); 
-}
+//       showTodayTemp(response);
+//       //datetimeInCity(todayResponsData);
+//     });
+// }
 
 let searchForm = document.getElementById("searching");
 let serachByCurrentPosition = document.getElementById("serach-by-position");
