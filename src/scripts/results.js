@@ -18,27 +18,38 @@ function handlePositionForResults(position) {
   let lon = position.coords.longitude;
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-  axios.get(apiByGeo).then(showCurrentGeoData);
+  axios.get(apiByGeo).then(showTodayTemp);
 }
 
 function handlePositionFromIndex(lat, lon) {
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
   return axios.get(apiByGeo).then((response) => {
-    showCurrentGeoData(response);
+    showTodayTemp(response);
   });
 }
 
 //показ прогнозу на поточний день для поточної локації користувача
-function showCurrentGeoData(response) {
-  console.log(response.data.main.temp);
-  console.log(response.data.name);
-  let tempData = Math.round(response.data.main.temp);
-  let temp = document.getElementById("firstDayTemp");
-  let city = document.getElementById("current-city");
-  temp.innerHTML = `${tempData}`;
-  city.innerHTML = `${response.data.name}`;
-}
+// function showCurrentGeoData(response) {
+//   let tempData = Math.round(response.data.main.temp);
+//   let temp = document.getElementById("firstDayTemp");
+//   let city = document.getElementById("current-city");
+//   let weatherDescription = document.getElementById("today-weather-description");
+//   let weatherDescriptionValue = response.data.weather[0].description;
+//   let todayHumidity = document.getElementById("today-humidity");
+//   let todayIcon = document.getElementById("today-weather-icon");
+//   let todayIconCode = response.data.weather[0].icon;
+//   temp.innerHTML = `${tempData}`;
+//   city.innerHTML = response.data.name;
+//   weatherDescription.innerHTML =
+//     weatherDescriptionValue.charAt(0).toUpperCase() +
+//     weatherDescriptionValue.slice(1);
+//   todayHumidity.innerHTML = `Humidity ${response.data.main.humidity}%`;
+//   todayIcon.setAttribute(
+//     "src",
+//     `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
+//   );
+// }
 
 //функція конвертації поточного дня: назви дня тижня, місяця, дати
 function formatDay1(date) {
