@@ -87,6 +87,7 @@ function setDateTime(day, time) {
 //фукнція отримання назви міста з пошукового рядка
 function letCity(event) {
   event.preventDefault();
+  debugger;
   let inputCity = document.getElementById("search-city-name");
   inputCityName = inputCity.value;
   if (inputCityName) {
@@ -182,30 +183,28 @@ function getCityData(cityName) {
   if (setMode.getAttribute("class") === "fahrenheit") {
     changeTempMode();
   }
-
-  return axios
-    .get(apiCity)
-    .then((response) => {
-      showTodayTemp(response);
-    })
-    .catch(function (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    }); //потрібно більш чітко відловлювати помилки
+  debugger;
+  axios.get(apiCity).then((response) => {
+    showTodayTemp(response);
+  });
+  // .catch(function (error) {
+  //   if (error.response) {
+  //     // The request was made and the server responded with a status code
+  //     // that falls out of the range of 2xx
+  //     console.log(error.response.data);
+  //     console.log(error.response.status);
+  //     console.log(error.response.headers);
+  //   } else if (error.request) {
+  //     // The request was made but no response was received
+  //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+  //     // http.ClientRequest in node.js
+  //     console.log(error.request);
+  //   } else {
+  //     // Something happened in setting up the request that triggered an Error
+  //     console.log("Error", error.message);
+  //   }
+  //   console.log(error.config);
+  // }); //потрібно більш чітко відловлювати помилки
 }
 
 //функція визначення дати для міста з пошуку
@@ -263,7 +262,7 @@ function startWithParams() {
     getCityData(city);
     //.then(function () { showTodayTemp(); });
   } else if (coords) {
-    handlePositionFromIndex(coords.lat, coords.lon).then(() => {
+    handlePositionFromIndex(coords.lat, coords.lon).then(function () {
       formatDay1(dateTime);
       formatTime(dateTime);
       setDateTime(formattedDay1, formattedTime);
