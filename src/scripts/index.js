@@ -62,7 +62,7 @@ function letCity(event) {
   if (inputCityName) {
     window.location.href = `/results?city=${inputCityName}`;
   } else {
-    let errorText = document.querySelector("#error-container");
+    let errorText = document.querySelector("#error-container-for-search");
     errorText.innerHTML = "Enter a city!";
     //alert("Enter a city!");
   }
