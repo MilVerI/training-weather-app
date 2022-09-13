@@ -24,7 +24,9 @@ function handlePositionForResults(position) {
 function handlePositionFromIndex(lat, lon) {
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-  axios.get(apiByGeo).then(showCurrentGeoData);
+  return axios.get(apiByGeo).then((response) => {
+    showCurrentGeoData(response);
+  });
 }
 
 //показ прогнозу на поточний день для поточної локації користувача
@@ -184,7 +186,7 @@ function getCityData(cityName) {
     changeTempMode();
   }
   debugger;
-  axios.get(apiCity).then((response) => {
+  return axios.get(apiCity).then((response) => {
     showTodayTemp(response);
   });
   // .catch(function (error) {
@@ -266,7 +268,7 @@ function startWithParams() {
       handlePositionFromIndex(coords.lat, coords.lon).then(function () {
         formatDay1(dateTime);
         formatTime(dateTime);
-        setDateTime(formattedDay1, formattedTime)
+        setDateTime(formattedDay1, formattedTime);
       });
     } else {
       //переспрямувати на індекс
@@ -274,7 +276,6 @@ function startWithParams() {
     }
   }
 }
-
 
 startWithParams();
 let searchForm = document.getElementById("searching");
