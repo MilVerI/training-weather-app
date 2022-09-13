@@ -261,15 +261,17 @@ function startWithParams() {
   if (city) {
     getCityData(city);
     //.then(function () { showTodayTemp(); });
-  } else if (coords) {
-    handlePositionFromIndex(coords.lat, coords.lon).then(function () {
-      formatDay1(dateTime);
-      formatTime(dateTime);
-      setDateTime(formattedDay1, formattedTime);
-    });
   } else {
-    //переспрямувати на індекс
-    window.location.href = "/";
+    if (coords) {
+      handlePositionFromIndex(coords.lat, coords.lon).then(function () {
+        formatDay1(dateTime);
+        formatTime(dateTime);
+        setDateTime(formattedDay1, formattedTime);
+      });
+    } else {
+      //переспрямувати на індекс
+      window.location.href = "/";
+    }
   }
 }
 
