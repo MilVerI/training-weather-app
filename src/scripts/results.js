@@ -185,9 +185,9 @@ function getCityData(cityName) {
 
   return axios
     .get(apiCity)
-    .then((response) => {
-      localStorage.setItem("apiData", JSON.stringify(response.data));
-    })
+    // .then((response) => {
+    //   localStorage.setItem("apiData", JSON.stringify(response.data));
+    // })
     .catch(
       function (error) {
         if (error.response) {
@@ -213,9 +213,9 @@ function getCityData(cityName) {
       // }
     )
     .finally(() => {
-      let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
+      // let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
 
-      showTodayTemp(todayResponsData);
+      showTodayTemp;
       //datetimeInCity(todayResponsData);
     }); //потрібно більш чітко відловлювати помилки
 }
@@ -275,7 +275,7 @@ function startWithParams() {
     getCityData(city)
     //.then(function () { showTodayTemp(); });
   } else if (coords) {
-    handlePositionFromIndex(coords.lat, coords.lon).then(function () {
+    handlePositionFromIndex(coords.lat, coords.lon).then(function() {
       formatDay1(dateTime);
       formatTime(dateTime);
       setDateTime(formattedDay1, formattedTime);
