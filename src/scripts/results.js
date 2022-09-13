@@ -236,7 +236,7 @@ function showTodayTemp(response) {
   let temp = document.getElementById("firstDayTemp");
   let city = document.getElementById("current-city");
   temp.innerHTML = `${tempData}`;
-  city.innerHTML = data.name;
+  city.innerHTML = response.data.name;
 }
 
 //Отримання параметру назва міста
