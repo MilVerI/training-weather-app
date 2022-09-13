@@ -44,10 +44,30 @@ function getCityData(cityName) {
     .then((response) => {
       localStorage.setItem("apiData", JSON.stringify(response.data));
     })
-    .catch((error) => {
-      let errorText = document.getElementById("error-container-for-search");
-      errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
-    }); //потрібно більш чітко відловлювати помилки
+    .catch(
+      function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          alert(error.response.data);
+          alert(error.response.status);
+          alert(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          alert(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          alert("Error", error.message);
+        }
+        alert(error.config);
+      }
+      //   (error) => {
+      //   let errorText = document.getElementById("error-container-for-search");
+      //   errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
+      // }
+    ); //потрібно більш чітко відловлювати помилки
 
   let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
 
