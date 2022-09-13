@@ -230,9 +230,9 @@ function datetimeInCity(data) {
 }
 
 //зміна назви міста та температури на сторінці для поточного дня
-function showTodayTemp(data) {
+function showTodayTemp(response) {
   //formatDay1(response.data.dt);
-  let tempData = Math.round(data.main.temp);
+  let tempData = Math.round(response.data.main.temp);
   let temp = document.getElementById("firstDayTemp");
   let city = document.getElementById("current-city");
   temp.innerHTML = `${tempData}`;
