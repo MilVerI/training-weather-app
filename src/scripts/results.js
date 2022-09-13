@@ -89,7 +89,6 @@ function setDateTime(day, time) {
 //фукнція отримання назви міста з пошукового рядка
 function letCity(event) {
   event.preventDefault();
-  debugger;
   let inputCity = document.getElementById("search-city-name");
   inputCityName = inputCity.value;
   if (inputCityName) {
@@ -185,7 +184,7 @@ function getCityData(cityName) {
   if (setMode.getAttribute("class") === "fahrenheit") {
     changeTempMode();
   }
-  debugger;
+
   return axios.get(apiCity).then((response) => {
     showTodayTemp(response);
   });
@@ -231,12 +230,26 @@ function datetimeInCity(data) {
 
 //зміна назви міста та температури на сторінці для поточного дня
 function showTodayTemp(response) {
-  //formatDay1(response.data.dt);
   let tempData = Math.round(response.data.main.temp);
   let temp = document.getElementById("firstDayTemp");
   let city = document.getElementById("current-city");
+  let weatherDescription = document.getElementById("today-weather-description");
+  let weatherDescriptionValue = response.data.weather[0].description;
+  let todayHumidity = document.getElementById("today-humidity");
+  let todayIcon = document.getElementById("today-weather-icon");
+  let todayIconCode = response.data.weather[0].icon;
   temp.innerHTML = `${tempData}`;
   city.innerHTML = response.data.name;
+  weatherDescription.innerHTML =
+    weatherDescriptionValue.charAt(0).toUpperCase() +
+    weatherDescriptionValue.slice(1);
+  todayHumidity.innerHTML = `Humidity ${response.data.main.humidity}%`;
+  todayIcon.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
+  );
+
+  //setAttribute
 }
 
 //Отримання параметру назва міста

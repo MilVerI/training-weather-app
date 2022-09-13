@@ -39,8 +39,12 @@
                 <h2>today</h2>
                 <h3 id="current-city">City</h3>
                 <h4><span id="firstDayName">Day, dd/mm</span><span id="time"> | hh:mm</span></h4>
-                <span class="weather-info">Mostly cloudy ☁</span>
-                <span class="humidity">Humidity 78%</span>
+                <span class="today-description-container">
+                    <span class="weather-info" id="today-weather-description">Weather description</span>
+                    <img class="today-icon" id="today-weather-icon"
+                        src=""></img>
+                </span>
+                <span class="humidity" id="today-humidity">Humidity</span>
             </div>
         </div>
         <div class="forecast">
@@ -92,7 +96,8 @@
         </div>
     </div>
     <footer>
-        <a href="https://github.com/MilVerI/training-weather-app" target="_blank" class="github-btn">Open-source code</a> by Mylevska V.
+        <a href="https://github.com/MilVerI/training-weather-app" target="_blank" class="github-btn">Open-source
+            code</a> by Mylevska V.
         <br />
         2022
     </footer>
