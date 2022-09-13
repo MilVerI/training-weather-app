@@ -22,10 +22,9 @@ function handlePosition(lat, lon) {
 function showCurrentGeoData(response) {
   console.log(response.data.main.temp);
   console.log(response.data.name);
-  //alert(`Your current position is "${response.data.name}"`);
   let tempData = Math.round(response.data.main.temp);
-  let temp = document.querySelector("#firstDayTemp");
-  let city = document.querySelector("#current-city");
+  let temp = document.getElementsById("firstDayTemp");
+  let city = document.getElementsById("current-city");
   temp.innerHTML = `${tempData}`;
   city.innerHTML = `${response.data.name}`;
 }
@@ -70,35 +69,34 @@ function formatTime(date) {
 }
 
 function setDateTime(day, time) {
-  let thisDay = document.querySelector("#firstDayName");
+  let thisDay = document.getElementsById("firstDayName");
   thisDay.innerHTML = day;
-  let thisTime = document.querySelector("#time");
+  let thisTime = document.getElementsById("time");
   thisTime.innerHTML = time;
 }
 
 //фукнція отримання назви міста з пошукового рядка
 function letCity(event) {
   event.preventDefault();
-  let inputCity = document.querySelector("#search-city-name");
+  let inputCity = document.getElementsById("search-city-name");
   inputCityName = inputCity.value;
   if (inputCityName) {
     getCityData(inputCityName);
   } else {
-    let error = document.querySelector("#error-container-for-search");
-    error.innerHTML = "Enter a city!";
-    //alert("Enter a city!");
+    let error = document.getElementById("error-container-for-search");
+    error.innerHTML = "Enter the city name to get results";
   }
 }
 
 //функція зміни шкали для температури з Цельсія на Фаренгейти і навпаким; потребує покращення
 function changeTempMode() {
   if (setMode.getAttribute("class") === "celsius") {
-    let temp1 = document.querySelector("#firstDayTemp");
-    let temp2 = document.querySelector("#secondDayTemp");
-    let temp3 = document.querySelector("#thirdDayTemp");
-    let temp4 = document.querySelector("#fourthDayTemp");
-    let temp5 = document.querySelector("#fifthDayTemp");
-    let temp6 = document.querySelector("#sixthDayTemp");
+    let temp1 = document.getElementsById("firstDayTemp");
+    let temp2 = document.getElementsById("secondDayTemp");
+    let temp3 = document.getElementsById("thirdDayTemp");
+    let temp4 = document.getElementsById("fourthDayTemp");
+    let temp5 = document.getElementsById("fifthDayTemp");
+    let temp6 = document.getElementsById("sixthDayTemp");
 
     let temp1Value = temp1.innerHTML;
     let farTemp1 = Math.round(temp1Value * 1.8 + 32);
@@ -128,12 +126,12 @@ function changeTempMode() {
     setMode.setAttribute("class", "fahrenheit");
   } else {
     if (setMode.getAttribute("class") === "fahrenheit") {
-      let temp1 = document.querySelector("#firstDayTemp");
-      let temp2 = document.querySelector("#secondDayTemp");
-      let temp3 = document.querySelector("#thirdDayTemp");
-      let temp4 = document.querySelector("#fourthDayTemp");
-      let temp5 = document.querySelector("#fifthDayTemp");
-      let temp6 = document.querySelector("#sixthDayTemp");
+      let temp1 = document.getElementsById("firstDayTemp");
+      let temp2 = document.getElementsById("secondDayTemp");
+      let temp3 = document.getElementsById("thirdDayTemp");
+      let temp4 = document.getElementsById("#fourthDayTemp");
+      let temp5 = document.getElementsById("fifthDayTemp");
+      let temp6 = document.getElementsById("sixthDayTemp");
 
       let temp1Value = temp1.innerHTML;
       let celsTemp1 = Math.round((temp1Value - 32) / 1.8);
@@ -182,9 +180,8 @@ function getCityData(cityName) {
       localStorage.setItem("apiData", JSON.stringify(response.data));
     })
     .catch((error) => {
-      let errorText = document.querySelector("#error-container");
+      let errorText = document.getElementsById("error-container-for-search");
       errorText.innerHTML = `Sorry, "${cityName}" cannot be found. Check the city and retry`;
-      //alert(`Sorry, "${cityName}" cannot be found. Check the city and retry`);
     })
     .finally(() => {
       let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
@@ -218,13 +215,13 @@ function datetimeInCity(data) {
 function showTodayTemp(data) {
   //formatDay1(response.data.dt);
   let tempData = Math.round(data.main.temp);
-  let temp = document.querySelector("#firstDayTemp");
-  let city = document.querySelector("#current-city");
+  let temp = document.getElementsById("firstDayTemp");
+  let city = document.getElementsById("current-city");
   temp.innerHTML = `${tempData}`;
   city.innerHTML = data.name;
 }
 
-//Получение параметров
+//Отримання параметру назва міста
 function getCityNameBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
   const city = urlParams.get("city");
@@ -232,6 +229,7 @@ function getCityNameBySearchParams() {
   return city;
 }
 
+//Отримання параметрів довгота та широта
 function getCoorsBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
   const lat = urlParams.get("lat");
@@ -240,7 +238,7 @@ function getCoorsBySearchParams() {
   return { lat, lon };
 }
 
-//Проверяем параметри строки
+//Перевірка параметрів рядка
 function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
@@ -255,15 +253,15 @@ function startWithParams() {
       setDateTime(formattedDay1, formattedTime);
     });
   } else {
-    //редиректим на титуьлную
+    //переспрямувати на індекс
     window.location.href = "/";
   }
 }
 
 startWithParams();
-let searchForm = document.querySelector("#searching");
-let setMode = document.querySelector("#tempToggler");
-let serachByCurrentPosition = document.querySelector("#serach-by-position");
+let searchForm = document.getElementsById("searching");
+let setMode = document.getElementsById("tempToggler");
+let serachByCurrentPosition = document.getElementsById("serach-by-position");
 searchForm.addEventListener("submit", letCity);
 setMode.addEventListener("click", changeTempMode);
 serachByCurrentPosition.addEventListener("click", infoOnCurrentLocation);
