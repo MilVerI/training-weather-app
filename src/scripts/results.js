@@ -4,6 +4,7 @@ let dateTime = new Date();
 let formattedDay1;
 let formattedTime;
 let inputCityName;
+let setMode = document.getElementById("tempToggler");
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 
 // //визначення поточного місцяположення і передача його у функцію handlePosition
@@ -207,7 +208,7 @@ function getCityData(cityName) {
       let todayResponsData = JSON.parse(localStorage.getItem("apiData"));
 
       showTodayTemp(todayResponsData);
-      datetimeInCity(todayResponsData);
+      //datetimeInCity(todayResponsData);
     }); //потрібно більш чітко відловлювати помилки
 }
 
@@ -280,7 +281,6 @@ function startWithParams() {
 
 startWithParams();
 let searchForm = document.getElementById("searching");
-let setMode = document.getElementById("tempToggler");
 let serachByCurrentPosition = document.getElementById("serach-by-position");
 searchForm.addEventListener("submit", letCity);
 setMode.addEventListener("click", changeTempMode);
