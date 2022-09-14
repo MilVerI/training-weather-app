@@ -278,7 +278,7 @@ function showTodayWeather(response) {
   let weatherDescription = document.getElementById("today-weather-description");
   let weatherDescriptionValue = response.data.weather[0].description;
   let todayHumidity = document.getElementById("today-humidity");
-  let todayWindSpeed = document.getElementById("today-wind-speed")
+  let todayWindSpeed = document.getElementById("today-wind-speed");
   let todayWindSpeedValue = Math.round(response.data.wind.speed);
   let todayIcon = document.getElementById("today-weather-icon");
   let todayIconCode = response.data.weather[0].icon;
@@ -294,7 +294,30 @@ function showTodayWeather(response) {
     `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
   );
 
-  //setAttribute
+  displayForecast;
+}
+
+//показ пятиденного прогнозу праворуч через ін'єкцію елементу х5;
+//впливає на роботу changeTempMode - випарвити
+function displayForecast() {
+  let forecastElement = document.getElementById("forecast");
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHTML = "";
+  days.forEach(function(day,date){
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="forecast-info">
+      <img class="weather-icons" src="src/files/cloudy-svgrepo-com.svg" alt="Mostly cloudy">
+        <div class="forecast-day-info">
+           <h5>${day}, ${date}</h5>
+              <div class="forecast-weather-info">Mostly cloudy | Humidity: 78%</div>
+        </div>
+        <div class="forecast-temperature">14</div>
+            <span class="symbol">°</span>
+        </div>`;
+        forecastElement.innerHTML = forecastHTML;
+  });
 }
 
 //Отримання параметру назва міста
@@ -335,6 +358,7 @@ function startWithParams() {
 }
 
 startWithParams();
+displayForecast(); //видалити після перевірки
 let searchForm = document.getElementById("searching");
 let serachByCurrentPosition = document.getElementById("serach-by-position");
 searchForm.addEventListener("submit", letCity);
