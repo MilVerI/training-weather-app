@@ -278,6 +278,8 @@ function showTodayWeather(response) {
   let weatherDescription = document.getElementById("today-weather-description");
   let weatherDescriptionValue = response.data.weather[0].description;
   let todayHumidity = document.getElementById("today-humidity");
+  let todayWindSpeed = document.getElementById("today-wind-speed")
+  let todayWindSpeedValue = Math.round(response.data.wind.speed);
   let todayIcon = document.getElementById("today-weather-icon");
   let todayIconCode = response.data.weather[0].icon;
   temp.innerHTML = `${tempData}`;
@@ -285,7 +287,8 @@ function showTodayWeather(response) {
   weatherDescription.innerHTML =
     weatherDescriptionValue.charAt(0).toUpperCase() +
     weatherDescriptionValue.slice(1);
-  todayHumidity.innerHTML = `Humidity ${response.data.main.humidity}%`;
+  todayHumidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
+  todayWindSpeed.innerHTML = `Wind speed: ${todayWindSpeedValue} km/h`;
   todayIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
