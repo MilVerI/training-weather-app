@@ -18,14 +18,17 @@ function handlePositionForResults(position) {
   let lon = position.coords.longitude;
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-  axios.get(apiByGeo).then(showTodayTemp);
+  axios.get(apiByGeo).then(showTodayWeather);
 }
 
 function handlePositionFromIndex(lat, lon) {
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
   return axios.get(apiByGeo).then((response) => {
-    showTodayTemp(response);
+    dateInCity(response);
+    timeInCity(response);
+    setDateTime(formattedDay, formattedTime);
+    showTodayWeather(response);
   });
 }
 
@@ -52,43 +55,43 @@ function handlePositionFromIndex(lat, lon) {
 // }
 
 //функція конвертації поточного дня: назви дня тижня, місяця, дати
-function formatDay(date) {
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+// function formatDay(date) {
+//   let days = [
+//     "Sunday",
+//     "Monday",
+//     "Tuesday",
+//     "Wednesday",
+//     "Thursday",
+//     "Friday",
+//     "Saturday",
+//   ];
 
-  let currentDay = days[date.getDay()];
-  let currentMonth = date.getMonth() + 1;
-  let currentDate = date.getDate();
+//   let currentDay = days[date.getDay()];
+//   let currentMonth = date.getMonth() + 1;
+//   let currentDate = date.getDate();
 
-  if (currentMonth < 10) {
-    formattedDay = `${currentDay}, ${currentDate}/0${currentMonth} | `;
-    return formattedDay;
-  } else {
-    formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
-    return formattedDay;
-  }
-}
+//   if (currentMonth < 10) {
+//     formattedDay = `${currentDay}, ${currentDate}/0${currentMonth} | `;
+//     return formattedDay;
+//   } else {
+//     formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
+//     return formattedDay;
+//   }
+// }
 
 //функція конвертації поточного часу після відкриття сторінки юзером
-function formatTime(date) {
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
+// function formatTime(date) {
+//   let hours = date.getHours();
+//   let minutes = date.getMinutes();
 
-  if (minutes < 10) {
-    formattedTime = `${hours}:0${minutes}`;
-    return formattedTime;
-  } else {
-    formattedTime = `${hours}:${minutes}`;
-    return formattedTime;
-  }
-}
+//   if (minutes < 10) {
+//     formattedTime = `${hours}:0${minutes}`;
+//     return formattedTime;
+//   } else {
+//     formattedTime = `${hours}:${minutes}`;
+//     return formattedTime;
+//   }
+// }
 
 function setDateTime(day, time) {
   let thisDay = document.getElementById("firstDayName");
@@ -188,7 +191,7 @@ function changeTempMode() {
 }
 
 //зміна шкали температур на стандартну (Цельсії), отримання назви міста з пошукового рядка
-// і перехід до виконання showTodayTemp
+// і перехід до виконання showTodayWeather
 function getCityData(cityName) {
   let apiCity = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
@@ -200,7 +203,7 @@ function getCityData(cityName) {
     dateInCity(response);
     timeInCity(response);
     setDateTime(formattedDay, formattedTime);
-    showTodayTemp(response);
+    showTodayWeather(response);
   });
   // .catch(function (error) {
   //   if (error.response) {
@@ -248,19 +251,15 @@ function dateInCity(response) {
     formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
     return formattedDay;
   }
-
-  // var formattedTime =
-  //   hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-  //console.log(formattedTime);
 }
 
-//функція визначення дати для міста з пошуку
+//функція визначення часу для міста з пошуку
 function timeInCity(response) {
   console.log(response.data.dt);
   let unix_timestamp = response.data.dt;
   let date = new Date(unix_timestamp * 1000);
   let hours = date.getHours();
-  let minutes = "0" + date.getMinutes();
+  let minutes = date.getMinutes();
 
   if (minutes < 10) {
     formattedTime = `${hours}:0${minutes}`;
@@ -272,7 +271,7 @@ function timeInCity(response) {
 }
 
 //зміна назви міста та температури на сторінці для поточного дня
-function showTodayTemp(response) {
+function showTodayWeather(response) {
   let tempData = Math.round(response.data.main.temp);
   let temp = document.getElementById("firstDayTemp");
   let city = document.getElementById("current-city");
