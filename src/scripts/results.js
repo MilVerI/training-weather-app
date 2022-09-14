@@ -209,6 +209,32 @@ function timeInCity(response) {
   }
 }
 
+//функція для отримання даних про прогоду на 7 днів
+function getForecast(coords) {
+  console.log(coords);
+  let apiForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude={part}&units=metric&appid=${apiKey}`;
+
+  return axios.get(apiForecast).then(displayForecast);
+  // .catch(function (error) {
+  //   if (error.response) {
+  //     // The request was made and the server responded with a status code
+  //     // that falls out of the range of 2xx
+  //     console.log(error.response.data);
+  //     console.log(error.response.status);
+  //     console.log(error.response.headers);
+  //   } else if (error.request) {
+  //     // The request was made but no response was received
+  //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+  //     // http.ClientRequest in node.js
+  //     console.log(error.request);
+  //   } else {
+  //     // Something happened in setting up the request that triggered an Error
+  //     console.log("Error", error.message);
+  //   }
+  //   console.log(error.config);
+  // }); //потрібно більш чітко відловлювати помилки
+}
+
 //зміна назви міста та температури на сторінці для поточного дня
 function showTodayWeather(response) {
   let tempData = Math.round(response.data.main.temp);
@@ -233,16 +259,17 @@ function showTodayWeather(response) {
     `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
   );
 
-  displayForecast;
+  getForecast(response.data.coord);
 }
 
 //показ пятиденного прогнозу праворуч через ін'єкцію елементу х5;
 //впливає на роботу changeTempMode - випарвити
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.getElementById("forecast");
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHTML = "";
-  days.forEach(function(day,date){
+  days.forEach(function (day, date) {
     forecastHTML =
       forecastHTML +
       `
@@ -255,7 +282,7 @@ function displayForecast() {
         <div class="forecast-temperature">14</div>
             <span class="symbol">°</span>
         </div>`;
-        forecastElement.innerHTML = forecastHTML;
+    forecastElement.innerHTML = forecastHTML;
   });
 }
 
