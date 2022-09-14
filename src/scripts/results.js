@@ -32,67 +32,6 @@ function handlePositionFromIndex(lat, lon) {
   });
 }
 
-//показ прогнозу на поточний день для поточної локації користувача
-// function showCurrentGeoData(response) {
-//   let tempData = Math.round(response.data.main.temp);
-//   let temp = document.getElementById("firstDayTemp");
-//   let city = document.getElementById("current-city");
-//   let weatherDescription = document.getElementById("today-weather-description");
-//   let weatherDescriptionValue = response.data.weather[0].description;
-//   let todayHumidity = document.getElementById("today-humidity");
-//   let todayIcon = document.getElementById("today-weather-icon");
-//   let todayIconCode = response.data.weather[0].icon;
-//   temp.innerHTML = `${tempData}`;
-//   city.innerHTML = response.data.name;
-//   weatherDescription.innerHTML =
-//     weatherDescriptionValue.charAt(0).toUpperCase() +
-//     weatherDescriptionValue.slice(1);
-//   todayHumidity.innerHTML = `Humidity ${response.data.main.humidity}%`;
-//   todayIcon.setAttribute(
-//     "src",
-//     `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
-//   );
-// }
-
-//функція конвертації поточного дня: назви дня тижня, місяця, дати
-// function formatDay(date) {
-//   let days = [
-//     "Sunday",
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//     "Saturday",
-//   ];
-
-//   let currentDay = days[date.getDay()];
-//   let currentMonth = date.getMonth() + 1;
-//   let currentDate = date.getDate();
-
-//   if (currentMonth < 10) {
-//     formattedDay = `${currentDay}, ${currentDate}/0${currentMonth} | `;
-//     return formattedDay;
-//   } else {
-//     formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
-//     return formattedDay;
-//   }
-// }
-
-//функція конвертації поточного часу після відкриття сторінки юзером
-// function formatTime(date) {
-//   let hours = date.getHours();
-//   let minutes = date.getMinutes();
-
-//   if (minutes < 10) {
-//     formattedTime = `${hours}:0${minutes}`;
-//     return formattedTime;
-//   } else {
-//     formattedTime = `${hours}:${minutes}`;
-//     return formattedTime;
-//   }
-// }
-
 function setDateTime(day, time) {
   let thisDay = document.getElementById("firstDayName");
   thisDay.innerHTML = day;
@@ -117,70 +56,70 @@ function letCity(event) {
 function changeTempMode() {
   if (setMode.getAttribute("class") === "celsius") {
     let temp1 = document.getElementById("firstDayTemp");
-    let temp2 = document.getElementById("secondDayTemp");
-    let temp3 = document.getElementById("thirdDayTemp");
-    let temp4 = document.getElementById("fourthDayTemp");
-    let temp5 = document.getElementById("fifthDayTemp");
-    let temp6 = document.getElementById("sixthDayTemp");
+    // let temp2 = document.getElementById("secondDayTemp");
+    // let temp3 = document.getElementById("thirdDayTemp");
+    // let temp4 = document.getElementById("fourthDayTemp");
+    // let temp5 = document.getElementById("fifthDayTemp");
+    // let temp6 = document.getElementById("sixthDayTemp");
 
     let temp1Value = temp1.innerHTML;
     let farTemp1 = Math.round(temp1Value * 1.8 + 32);
     temp1.innerHTML = `${farTemp1}`;
 
-    let temp2Value = temp2.innerHTML;
-    let farTemp2 = Math.round(temp2Value * 1.8 + 32);
-    temp2.innerHTML = `${farTemp2}`;
+    // let temp2Value = temp2.innerHTML;
+    // let farTemp2 = Math.round(temp2Value * 1.8 + 32);
+    // temp2.innerHTML = `${farTemp2}`;
 
-    let temp3Value = temp3.innerHTML;
-    let farTemp3 = Math.round(temp3Value * 1.8 + 32);
-    temp3.innerHTML = `${farTemp3}`;
+    // let temp3Value = temp3.innerHTML;
+    // let farTemp3 = Math.round(temp3Value * 1.8 + 32);
+    // temp3.innerHTML = `${farTemp3}`;
 
-    let temp4Value = temp4.innerHTML;
-    let farTemp4 = Math.round(temp4Value * 1.8 + 32);
-    temp4.innerHTML = `${farTemp4}`;
+    // let temp4Value = temp4.innerHTML;
+    // let farTemp4 = Math.round(temp4Value * 1.8 + 32);
+    // temp4.innerHTML = `${farTemp4}`;
 
-    let temp5Value = temp5.innerHTML;
-    let farTemp5 = Math.round(temp5Value * 1.8 + 32);
-    temp5.innerHTML = `${farTemp5}`;
+    // let temp5Value = temp5.innerHTML;
+    // let farTemp5 = Math.round(temp5Value * 1.8 + 32);
+    // temp5.innerHTML = `${farTemp5}`;
 
-    let temp6Value = temp6.innerHTML;
-    let farTemp6 = Math.round(temp6Value * 1.8 + 32);
-    temp6.innerHTML = `${farTemp6}`;
+    // let temp6Value = temp6.innerHTML;
+    // let farTemp6 = Math.round(temp6Value * 1.8 + 32);
+    // temp6.innerHTML = `${farTemp6}`;
 
     setMode.innerHTML = "°F";
     setMode.setAttribute("class", "fahrenheit");
   } else {
     if (setMode.getAttribute("class") === "fahrenheit") {
       let temp1 = document.getElementById("firstDayTemp");
-      let temp2 = document.getElementById("secondDayTemp");
-      let temp3 = document.getElementById("thirdDayTemp");
-      let temp4 = document.getElementById("fourthDayTemp");
-      let temp5 = document.getElementById("fifthDayTemp");
-      let temp6 = document.getElementById("sixthDayTemp");
+      // let temp2 = document.getElementById("secondDayTemp");
+      // let temp3 = document.getElementById("thirdDayTemp");
+      // let temp4 = document.getElementById("fourthDayTemp");
+      // let temp5 = document.getElementById("fifthDayTemp");
+      // let temp6 = document.getElementById("sixthDayTemp");
 
       let temp1Value = temp1.innerHTML;
       let celsTemp1 = Math.round((temp1Value - 32) / 1.8);
       temp1.innerHTML = `${celsTemp1}`;
 
-      let temp2Value = temp2.innerHTML;
-      let celsTemp2 = Math.round((temp2Value - 32) / 1.8);
-      temp2.innerHTML = `${celsTemp2}`;
+      // let temp2Value = temp2.innerHTML;
+      // let celsTemp2 = Math.round((temp2Value - 32) / 1.8);
+      // temp2.innerHTML = `${celsTemp2}`;
 
-      let temp3Value = temp3.innerHTML;
-      let celsTemp3 = Math.round((temp3Value - 32) / 1.8);
-      temp3.innerHTML = `${celsTemp3}`;
+      // let temp3Value = temp3.innerHTML;
+      // let celsTemp3 = Math.round((temp3Value - 32) / 1.8);
+      // temp3.innerHTML = `${celsTemp3}`;
 
-      let temp4Value = temp4.innerHTML;
-      let celsTemp4 = Math.round((temp4Value - 32) / 1.8);
-      temp4.innerHTML = `${celsTemp4}`;
+      // let temp4Value = temp4.innerHTML;
+      // let celsTemp4 = Math.round((temp4Value - 32) / 1.8);
+      // temp4.innerHTML = `${celsTemp4}`;
 
-      let temp5Value = temp5.innerHTML;
-      let celsTemp5 = Math.round((temp5Value - 32) / 1.8);
-      temp5.innerHTML = `${celsTemp5}`;
+      // let temp5Value = temp5.innerHTML;
+      // let celsTemp5 = Math.round((temp5Value - 32) / 1.8);
+      // temp5.innerHTML = `${celsTemp5}`;
 
-      let temp6Value = temp6.innerHTML;
-      let celsTemp6 = Math.round((temp6Value - 32) / 1.8);
-      temp6.innerHTML = `${celsTemp6}`;
+      // let temp6Value = temp6.innerHTML;
+      // let celsTemp6 = Math.round((temp6Value - 32) / 1.8);
+      // temp6.innerHTML = `${celsTemp6}`;
 
       setMode.innerHTML = "°C";
       setMode.setAttribute("class", "celsius");
