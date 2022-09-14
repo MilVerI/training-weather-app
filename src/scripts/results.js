@@ -1,7 +1,7 @@
 //https://main--gorgeous-otter-5cc80c.netlify.app/results?lat=50.4197225&lon=30.6396344
 
 let dateTime = new Date();
-let formattedDay1;
+let formattedDay;
 let formattedTime;
 let inputCityName;
 let setMode = document.getElementById("tempToggler");
@@ -68,11 +68,11 @@ function formatDay1(date) {
   let currentDate = date.getDate();
 
   if (currentMonth < 10) {
-    formattedDay1 = `${currentDay}, ${currentDate}/0${currentMonth} | `;
-    return formattedDay1;
+    formattedDay = `${currentDay}, ${currentDate}/0${currentMonth} | `;
+    return formattedDay;
   } else {
-    formattedDay1 = `${currentDay}, ${currentDate}/${currentMonth} | `;
-    return formattedDay1;
+    formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
+    return formattedDay;
   }
 }
 
@@ -197,6 +197,8 @@ function getCityData(cityName) {
   }
 
   return axios.get(apiCity).then((response) => {
+    dateInCity(response);
+    timeInCity(response);
     showTodayTemp(response);
   });
   // .catch(function (error) {
@@ -220,23 +222,52 @@ function getCityData(cityName) {
 }
 
 //функція визначення дати для міста з пошуку
-function datetimeInCity(data) {
-  console.log(data.dt);
-  let unix_timestamp = data.dt;
-  // Create a new JavaScript Date object based on the timestamp
-  // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-  var date = new Date(unix_timestamp * 1000);
-  // Hours part from the timestamp
-  var hours = date.getHours();
-  // Minutes part from the timestamp
-  var minutes = "0" + date.getMinutes();
-  // Seconds part from the timestamp
-  var seconds = "0" + date.getSeconds();
+function dateInCity(response) {
+  console.log(response.data.dt);
+  let unix_timestamp = response.data.dt;
+  let date = new Date(unix_timestamp * 1000);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-  var formattedTime =
-    hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  let currentDay = days[date.getDay()];
+  let currentMonth = date.getMonth() + 1;
+  let currentDate = date.getDate();
 
-  console.log(formattedTime);
+  if (currentMonth < 10) {
+    formattedDay = `${currentDay}, ${currentDate}/0${currentMonth} | `;
+    return formattedDay;
+  } else {
+    formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
+    return formattedDay;
+  }
+
+  // var formattedTime =
+  //   hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  //console.log(formattedTime);
+}
+
+//функція визначення дати для міста з пошуку
+function timeInCity(response) {
+  console.log(response.data.dt);
+  let unix_timestamp = response.data.dt;
+  let date = new Date(unix_timestamp * 1000);
+  let hours = date.getHours();
+  let minutes = "0" + date.getMinutes();
+
+  if (minutes < 10) {
+    formattedTime = `${hours}:0${minutes}`;
+    return formattedTime;
+  } else {
+    formattedTime = `${hours}:${minutes}`;
+    return formattedTime;
+  }
 }
 
 //зміна назви міста та температури на сторінці для поточного дня
@@ -285,16 +316,13 @@ function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
   if (city) {
-    window.location.href = "/results";
     getCityData(city);
-    //.then(function () { showTodayTemp(); });
   } else {
     if (coords) {
       handlePositionFromIndex(coords.lat, coords.lon).then(function () {
-        window.location.href = "/results";
         formatDay1(dateTime);
         formatTime(dateTime);
-        setDateTime(formattedDay1, formattedTime);
+        setDateTime(formattedDay, formattedTime);
       });
     } else {
       //переспрямувати на індекс

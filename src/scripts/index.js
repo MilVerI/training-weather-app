@@ -1,6 +1,4 @@
 let dateTime = new Date();
-let formattedDay1;
-let formattedTime;
 let inputCityName;
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
 
