@@ -48,12 +48,18 @@ h3 {
   line-height: 40px;
 }
 
-h4 {
+div.last-update-time {
+  flex-direction: column;
   color: #939aa9;
-  margin: 5px 0 0 20px;
-  font-size: 30px;
-  line-height: 35px;
-  font-weight: 400;
+  margin: 15px 0 0 20px;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 300;
+}
+
+span.update-time-container
+{
+  flex-direction: row;
 }
 
 div.forecast {
@@ -141,7 +147,7 @@ span.switchTemp {
 .today-description-container {
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .celsius {

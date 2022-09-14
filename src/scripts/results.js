@@ -245,10 +245,10 @@ function dateInCity(response) {
   let currentDate = date.getDate();
 
   if (currentMonth < 10) {
-    formattedDay = `${currentDay}, ${currentDate}/0${currentMonth} | `;
+    formattedDay = `  ${currentDay}, ${currentDate}/0${currentMonth} |  `;
     return formattedDay;
   } else {
-    formattedDay = `${currentDay}, ${currentDate}/${currentMonth} | `;
+    formattedDay = `  ${currentDay}, ${currentDate}/${currentMonth} |  `;
     return formattedDay;
   }
 }
@@ -262,10 +262,10 @@ function timeInCity(response) {
   let minutes = date.getMinutes();
 
   if (minutes < 10) {
-    formattedTime = `${hours}:0${minutes}`;
+    formattedTime = ` ${hours}:0${minutes}`;
     return formattedTime;
   } else {
-    formattedTime = `${hours}:${minutes}`;
+    formattedTime = ` ${hours}:${minutes}`;
     return formattedTime;
   }
 }
