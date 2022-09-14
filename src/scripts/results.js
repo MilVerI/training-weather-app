@@ -52,7 +52,7 @@ function handlePositionFromIndex(lat, lon) {
 // }
 
 //функція конвертації поточного дня: назви дня тижня, місяця, дати
-function formatDay1(date) {
+function formatDay(date) {
   let days = [
     "Sunday",
     "Monday",
@@ -199,6 +199,7 @@ function getCityData(cityName) {
   return axios.get(apiCity).then((response) => {
     dateInCity(response);
     timeInCity(response);
+    setDateTime(formattedDay, formattedTime);
     showTodayTemp(response);
   });
   // .catch(function (error) {
@@ -320,7 +321,7 @@ function startWithParams() {
   } else {
     if (coords) {
       handlePositionFromIndex(coords.lat, coords.lon).then(function () {
-        formatDay1(dateTime);
+        formatDay(dateTime);
         formatTime(dateTime);
         setDateTime(formattedDay, formattedTime);
       });
