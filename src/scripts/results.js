@@ -268,7 +268,6 @@ function getCityNameBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
   const city = urlParams.get("city");
   if (!city) return false;
-  window.location.href = "/results";
   return city;
 }
 
@@ -278,7 +277,6 @@ function getCoorsBySearchParams() {
   const lat = urlParams.get("lat");
   const lon = urlParams.get("lon");
   if (!lat || !lon) return false;
-  window.location.href = "/results";
   return { lat, lon };
 }
 
@@ -287,11 +285,13 @@ function startWithParams() {
   const city = getCityNameBySearchParams();
   const coords = getCoorsBySearchParams();
   if (city) {
+    window.location.href = "/results";
     getCityData(city);
     //.then(function () { showTodayTemp(); });
   } else {
     if (coords) {
       handlePositionFromIndex(coords.lat, coords.lon).then(function () {
+        window.location.href = "/results";
         formatDay1(dateTime);
         formatTime(dateTime);
         setDateTime(formattedDay1, formattedTime);
