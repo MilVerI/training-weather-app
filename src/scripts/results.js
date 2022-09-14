@@ -55,72 +55,28 @@ function letCity(event) {
 //функція зміни шкали для температури з Цельсія на Фаренгейти і навпаким; потребує покращення
 function changeTempMode() {
   if (setMode.getAttribute("class") === "celsius") {
-    let temp1 = document.getElementById("firstDayTemp");
-    // let temp2 = document.getElementById("secondDayTemp");
-    // let temp3 = document.getElementById("thirdDayTemp");
-    // let temp4 = document.getElementById("fourthDayTemp");
-    // let temp5 = document.getElementById("fifthDayTemp");
-    // let temp6 = document.getElementById("sixthDayTemp");
-
-    let temp1Value = temp1.innerHTML;
-    let farTemp1 = Math.round(temp1Value * 1.8 + 32);
-    temp1.innerHTML = `${farTemp1}`;
-
-    // let temp2Value = temp2.innerHTML;
-    // let farTemp2 = Math.round(temp2Value * 1.8 + 32);
-    // temp2.innerHTML = `${farTemp2}`;
-
-    // let temp3Value = temp3.innerHTML;
-    // let farTemp3 = Math.round(temp3Value * 1.8 + 32);
-    // temp3.innerHTML = `${farTemp3}`;
-
-    // let temp4Value = temp4.innerHTML;
-    // let farTemp4 = Math.round(temp4Value * 1.8 + 32);
-    // temp4.innerHTML = `${farTemp4}`;
-
-    // let temp5Value = temp5.innerHTML;
-    // let farTemp5 = Math.round(temp5Value * 1.8 + 32);
-    // temp5.innerHTML = `${farTemp5}`;
-
-    // let temp6Value = temp6.innerHTML;
-    // let farTemp6 = Math.round(temp6Value * 1.8 + 32);
-    // temp6.innerHTML = `${farTemp6}`;
-
+    let elems = document.getElementsByClassName("temperature");
+    console.log(elems);
+    if (elems.length) {
+      for (var i = 0; i < elems.length; i++) {
+        let temp = elems[i].innerHTML;
+        let tempValue = Math.round(temp * 1.8 + 32);
+        elems[i].innerHTML = `${tempValue}`;
+      }
+    }
     setMode.innerHTML = "°F";
     setMode.setAttribute("class", "fahrenheit");
   } else {
     if (setMode.getAttribute("class") === "fahrenheit") {
-      let temp1 = document.getElementById("firstDayTemp");
-      // let temp2 = document.getElementById("secondDayTemp");
-      // let temp3 = document.getElementById("thirdDayTemp");
-      // let temp4 = document.getElementById("fourthDayTemp");
-      // let temp5 = document.getElementById("fifthDayTemp");
-      // let temp6 = document.getElementById("sixthDayTemp");
-
-      let temp1Value = temp1.innerHTML;
-      let celsTemp1 = Math.round((temp1Value - 32) / 1.8);
-      temp1.innerHTML = `${celsTemp1}`;
-
-      // let temp2Value = temp2.innerHTML;
-      // let celsTemp2 = Math.round((temp2Value - 32) / 1.8);
-      // temp2.innerHTML = `${celsTemp2}`;
-
-      // let temp3Value = temp3.innerHTML;
-      // let celsTemp3 = Math.round((temp3Value - 32) / 1.8);
-      // temp3.innerHTML = `${celsTemp3}`;
-
-      // let temp4Value = temp4.innerHTML;
-      // let celsTemp4 = Math.round((temp4Value - 32) / 1.8);
-      // temp4.innerHTML = `${celsTemp4}`;
-
-      // let temp5Value = temp5.innerHTML;
-      // let celsTemp5 = Math.round((temp5Value - 32) / 1.8);
-      // temp5.innerHTML = `${celsTemp5}`;
-
-      // let temp6Value = temp6.innerHTML;
-      // let celsTemp6 = Math.round((temp6Value - 32) / 1.8);
-      // temp6.innerHTML = `${celsTemp6}`;
-
+      let elems = document.getElementsByClassName("temperature");
+      console.log(elems);
+      if (elems.length) {
+        for (var i = 0; i < elems.length; i++) {
+          let temp = elems[i].innerHTML;
+          let tempValue = Math.round((temp - 32) / 1.8);
+          elems[i].innerHTML = `${tempValue}`;
+        }
+      }
       setMode.innerHTML = "°C";
       setMode.setAttribute("class", "celsius");
     } else {
@@ -258,33 +214,41 @@ function showTodayWeather(response) {
     "src",
     `https://openweathermap.org/img/wn/${todayIconCode}@2x.png`
   );
-
   getForecast(response.data.coord);
 }
 
 //показ пятиденного прогнозу праворуч через ін'єкцію елементу х5;
 //впливає на роботу changeTempMode - випарвити
 function displayForecast(response) {
-  console.log(response.data.daily);
+  //console.log(response.data.daily);
+  let forecastData = response.data.daily;
+
   let forecastElement = document.getElementById("forecast");
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHTML = "";
-  days.forEach(function (day, date) {
+  forecastData.forEach(function (forecastDay, date) {
+    //видалити, змінні для тесту
+    let description = "Mostly cloudy";
+    let humidity = "60";
+    let temp = "14";
+    let windSpeed = "3";
+    //
     forecastHTML =
       forecastHTML +
       `
     <div class="forecast-info">
       <img class="weather-icons" src="src/files/cloudy-svgrepo-com.svg" alt="Mostly cloudy">
         <div class="forecast-day-info">
-           <h5>${day}, ${date}</h5>
-              <div class="forecast-weather-info">Mostly cloudy | Humidity: 78%</div>
+           <h5>${forecastDay.dt}, ${date}</h5>
+              <div class="forecast-weather-info"><span>${description}</span><span> | H: ${humidity}%</span><span> | W: ${windSpeed}km/h</span></div>
         </div>
-        <div class="forecast-temperature">14</div>
+        <div class="forecast-temperature temperature">${temp}</div>
             <span class="symbol">°</span>
         </div>`;
     forecastElement.innerHTML = forecastHTML;
   });
 }
+// temperature - класс чтобы выбрать элемент
 
 //Отримання параметру назва міста
 function getCityNameBySearchParams() {
@@ -324,7 +288,6 @@ function startWithParams() {
 }
 
 startWithParams();
-displayForecast(); //видалити після перевірки
 let searchForm = document.getElementById("searching");
 let serachByCurrentPosition = document.getElementById("serach-by-position");
 searchForm.addEventListener("submit", letCity);

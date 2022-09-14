@@ -152,11 +152,13 @@ span.switchTemp {
 .celsius {
   color: #ffa726;
   text-shadow: -3px 2px 3px #b9c1d3;
+  
 }
 
 .celsius:hover {
   color: #939aa9;
   text-shadow: -3px 2px 3px #ffa726;
+  cursor: pointer;
 }
 
 .fahrenheit {
@@ -167,6 +169,7 @@ span.switchTemp {
 .fahrenheit:hover {
   color: #ffa726;
   text-shadow: -3px 2px 3px #b9c1d3;
+  cursor: pointer;
 }
 
 #vertLine {
