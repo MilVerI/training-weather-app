@@ -268,6 +268,7 @@ function getCityNameBySearchParams() {
   const urlParams = new URLSearchParams(window.location.search);
   const city = urlParams.get("city");
   if (!city) return false;
+  window.location.href = "/results";
   return city;
 }
 
@@ -277,6 +278,7 @@ function getCoorsBySearchParams() {
   const lat = urlParams.get("lat");
   const lon = urlParams.get("lon");
   if (!lat || !lon) return false;
+  window.location.href = "/results";
   return { lat, lon };
 }
 
