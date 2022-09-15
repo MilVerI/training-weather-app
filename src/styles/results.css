@@ -8,7 +8,7 @@ div.results {
 
 div.today {
   flex-direction: column;
-  width: 48%;
+  width: 47%;
   height: 100%;
 }
 
@@ -55,8 +55,7 @@ div.last-update-time {
   font-weight: 300;
 }
 
-span.update-time-container
-{
+span.update-time-container {
   flex-direction: row;
 }
 
@@ -66,9 +65,10 @@ div.forecast {
   border: #5a6275;
   border-width: 0 0 0 1px;
   border-style: solid;
-  margin-top: 20px;
-  padding-bottom: 15px;
+  margin-top: 35px;
+  padding: 0 0 15px 15px;
 }
+
 div.forecast-info {
   display: row;
   align-items: center;
@@ -101,7 +101,7 @@ img.today-icon {
 div.forecast-day-info {
   flex-direction: column;
   width: 53%;
-  max-width: 55%
+  max-width: 55%;
 }
 
 h5 {
@@ -172,7 +172,6 @@ span.switchTemp {
 .celsius {
   color: #ffa726;
   text-shadow: -3px 2px 3px #b9c1d3;
-  
 }
 
 .celsius:hover {
@@ -198,4 +197,9 @@ span.switchTemp {
   color: #939aa9;
   margin-left: 6px;
   font-weight: 100;
+}
+
+.message-for-forecast-loading {
+  color: #ffa726;
+  font-size: 30px;
 }

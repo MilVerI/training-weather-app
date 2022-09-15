@@ -235,31 +235,34 @@ function displayForecast(response) {
   let forecastElement = document.getElementById("forecast");
 
   let forecastHTML = "";
-  forecastData.forEach(function (forecastDay) {
-    //console.log(formattedDayForForecast(forecastDay.dt));
-    let description = forecastDay.weather[0].description;
-    let descriptionValue =
-      description.charAt(0).toUpperCase() + description.slice(1);
-    let tempMax = Math.round(forecastDay.temp.max);
-    let tempMin = Math.round(forecastDay.temp.min);
-    let windSpeed = Math.round(forecastDay.wind_speed);
-    let iconCode = forecastDay.weather[0].icon;
+  forecastData.forEach(function (forecastDay, index) {
+    if (index > 0 && index < 6) {
+      let description = forecastDay.weather[0].description;
+      let descriptionValue =
+        description.charAt(0).toUpperCase() + description.slice(1);
+      let tempMax = Math.round(forecastDay.temp.max);
+      let tempMin = Math.round(forecastDay.temp.min);
+      let windSpeed = Math.round(forecastDay.wind_speed);
+      let iconCode = forecastDay.weather[0].icon;
 
-    forecastHTML =
-      forecastHTML +
-      `
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="forecast-info">
       <img class="weather-icons" src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${descriptionValue}">
         <div class="forecast-day-info">
            <h5>${formattedDayForForecast(forecastDay.dt)}</h5>
-              <div class="forecast-weather-info"><span>${descriptionValue}</span><span> | H: ${forecastDay.humidity}% </span><span> | W: ${windSpeed}km/h</span></div>
+              <div class="forecast-weather-info"><span>${descriptionValue}</span><span> | H: ${
+          forecastDay.humidity
+        }% </span><span> | W: ${windSpeed}km/h</span></div>
         </div>
         <div class="forecast-temperature-max temperature">${tempMax}</div>
             <span class="symbol-max">°</span>
         <div class="forecast-temperature-min temperature">${tempMin}</div>
             <span class="symbol-min">°</span>
     </div>`;
-    forecastElement.innerHTML = forecastHTML;
+      forecastElement.innerHTML = forecastHTML;
+    }
   });
 }
 // temperature - класс чтобы выбрать элемент
