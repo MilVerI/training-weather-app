@@ -217,34 +217,43 @@ function showTodayWeather(response) {
   getForecast(response.data.coord);
 }
 
+//форматування дати для displayForecast
+
+
 //показ пятиденного прогнозу праворуч через ін'єкцію елементу х5;
-//впливає на роботу changeTempMode - випарвити
 function displayForecast(response) {
   //console.log(response.data.daily);
   let forecastData = response.data.daily;
 
   let forecastElement = document.getElementById("forecast");
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
   let forecastHTML = "";
-  forecastData.forEach(function (forecastDay, date) {
+  forecastData.forEach(function (forecastDay) {
     //видалити, змінні для тесту
-    let description = "Mostly cloudy";
-    let humidity = "60";
-    let temp = "14";
-    let windSpeed = "3";
-    //
+    //const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let date = "12/10"
+    let description = forecastDay.weather[0].description;
+    let descriptionValue = description.charAt(0).toUpperCase() + description.slice(1);
+    let tempMax = Math.round(forecastDay.temp.max);
+    let tempMin = Math.round(forecastDay.temp.min);
+    let windSpeed = Math.round(forecastDay.wind_speed);
+    let iconCode = forecastDay.weather[0].icon;
+
+    
     forecastHTML =
       forecastHTML +
       `
     <div class="forecast-info">
-      <img class="weather-icons" src="src/files/cloudy-svgrepo-com.svg" alt="Mostly cloudy">
+      <img class="weather-icons" src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${descriptionValue}">
         <div class="forecast-day-info">
            <h5>${forecastDay.dt}, ${date}</h5>
-              <div class="forecast-weather-info"><span>${description}</span><span> | H: ${humidity}%</span><span> | W: ${windSpeed}km/h</span></div>
+              <div class="forecast-weather-info"><span>${descriptionValue}</span><span> | H: ${forecastDay.humidity}% </span><span> | W: ${windSpeed}km/h</span></div>
         </div>
-        <div class="forecast-temperature temperature">${temp}</div>
-            <span class="symbol">°</span>
-        </div>`;
+        <div class="forecast-temperature-max temperature">${tempMax}</div>
+            <span class="symbol-max">°</span>
+        <div class="forecast-temperature-min temperature">${tempMin}</div>
+            <span class="symbol-min">°</span>
+    </div>`;
     forecastElement.innerHTML = forecastHTML;
   });
 }

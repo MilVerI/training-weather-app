@@ -8,7 +8,7 @@ div.results {
 
 div.today {
   flex-direction: column;
-  width: 50%;
+  width: 48%;
   height: 100%;
 }
 
@@ -18,7 +18,6 @@ div.today-info {
   border-width: 1px 0 0 0;
   border-style: solid;
   margin: 0 60px 0 0;
-  padding: 0;
 }
 
 div.today-temp {
@@ -27,7 +26,6 @@ div.today-temp {
   max-height: 49%;
   font-size: 200px;
   font-weight: bold;
-  padding: 0;
   color: #ffa726;
 }
 
@@ -79,15 +77,17 @@ div.forecast-info {
   border-width: 1px;
   border-radius: 65px;
   border-style: solid;
-  width: 600px;
-  min-width: 400px;
-  margin: 10px 20px 0 20px;
+  width: 100%;
+  min-width: 560px;
+  margin: 10px 15px 0 20px;
 }
 
 img.weather-icons {
   height: 70px;
   max-height: fit-content;
-  margin: 10px 30px 10px 40px;
+  background-color: #178bbf;
+  border-radius: 30px;
+  margin: 10px 15px 10px 35px;
 }
 
 img.today-icon {
@@ -100,7 +100,8 @@ img.today-icon {
 
 div.forecast-day-info {
   flex-direction: column;
-  width: 60%;
+  width: 53%;
+  max-width: 55%
 }
 
 h5 {
@@ -111,11 +112,20 @@ h5 {
   font-weight: 400;
 }
 
-span.symbol {
+span.symbol-max {
   color: #5a6275;
   font-size: 55px;
   font-weight: 500;
+  margin-right: 3px;
 }
+
+span.symbol-min {
+  color: #5a6275b5;
+  font-size: 55px;
+  font-weight: 500;
+  margin-right: 3px;
+}
+
 div.forecast-weather-info,
 div.forecast-humidity {
   color: #5a6275;
@@ -124,15 +134,25 @@ div.forecast-humidity {
   font-weight: 500;
 }
 
-div.forecast-temperature {
+div.forecast-temperature-max {
   color: #5a6275;
-  font-size: 55px;
+  font-size: 45px;
+  font-weight: 500;
+}
+
+div.forecast-temperature-min {
+  color: #5a6275b5;
+  font-size: 45px;
   font-weight: 500;
 }
 
 span.switchTemp {
   font-size: 45px;
   margin: 60px 60px 0px 30px;
+}
+
+.forecast-weather-info span {
+  padding-right: 3px;
 }
 
 .weather-info {
