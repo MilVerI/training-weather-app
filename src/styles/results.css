@@ -148,7 +148,7 @@ div.forecast-temperature-min {
 
 span.switchTemp {
   font-size: 45px;
-  margin: 60px 60px 0px 30px;
+  margin: 60px 60px 0 0;
 }
 
 .forecast-weather-info span {
