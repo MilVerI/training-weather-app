@@ -3,6 +3,7 @@
 let dateTime = new Date();
 let formattedDay;
 let formattedTime;
+let formattedDayForecast;
 let inputCityName;
 let setMode = document.getElementById("tempToggler");
 let apiKey = "d80a82d9d8aa9717ceb7838589de67c1";
@@ -125,15 +126,7 @@ function dateInCity(response) {
   console.log(response.data.dt);
   let unix_timestamp = response.data.dt;
   let date = new Date(unix_timestamp * 1000);
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   let currentDay = days[date.getDay()];
   let currentMonth = date.getMonth() + 1;
@@ -218,35 +211,47 @@ function showTodayWeather(response) {
 }
 
 //форматування дати для displayForecast
+function formattedDayForForecast(timestamp) {
+  let date = new Date(timestamp * 1000);
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  let day = days[date.getDay()];
+  let month = date.getMonth() + 1;
+  let dateForecast = date.getDate();
+
+  if (month < 10) {
+    formattedDayForecast = `  ${day}, ${dateForecast}/0${month}`;
+    return formattedDayForecast;
+  } else {
+    formattedDayForecast = `  ${day}, ${dateForecast}/${month}`;
+    return formattedDayForecast;
+  }
+}
 
 //показ пятиденного прогнозу праворуч через ін'єкцію елементу х5;
 function displayForecast(response) {
-  //console.log(response.data.daily);
   let forecastData = response.data.daily;
 
   let forecastElement = document.getElementById("forecast");
 
   let forecastHTML = "";
   forecastData.forEach(function (forecastDay) {
-    //видалити, змінні для тесту
-    //const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    let date = "12/10"
+    //console.log(formattedDayForForecast(forecastDay.dt));
     let description = forecastDay.weather[0].description;
-    let descriptionValue = description.charAt(0).toUpperCase() + description.slice(1);
+    let descriptionValue =
+      description.charAt(0).toUpperCase() + description.slice(1);
     let tempMax = Math.round(forecastDay.temp.max);
     let tempMin = Math.round(forecastDay.temp.min);
     let windSpeed = Math.round(forecastDay.wind_speed);
     let iconCode = forecastDay.weather[0].icon;
 
-    
     forecastHTML =
       forecastHTML +
       `
     <div class="forecast-info">
       <img class="weather-icons" src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${descriptionValue}">
         <div class="forecast-day-info">
-           <h5>${forecastDay.dt}, ${date}</h5>
+           <h5>${formattedDayForForecast(forecastDay.dt)}</h5>
               <div class="forecast-weather-info"><span>${descriptionValue}</span><span> | H: ${forecastDay.humidity}% </span><span> | W: ${windSpeed}km/h</span></div>
         </div>
         <div class="forecast-temperature-max temperature">${tempMax}</div>
