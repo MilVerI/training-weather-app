@@ -19,13 +19,17 @@ function handlePositionForResults(position) {
   let lon = position.coords.longitude;
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
-  axios.get(apiByGeo).then(showTodayWeather);
+  axios.get(apiByGeo).then((response) => {
+    cleanErrorContainer();
+    showTodayWeather(response);
+  });
 }
 
 function handlePositionFromIndex(lat, lon) {
   let apiByGeo = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
   return axios.get(apiByGeo).then((response) => {
+    cleanErrorContainer();
     dateInCity(response);
     timeInCity(response);
     setDateTime(formattedDay, formattedTime);
@@ -95,30 +99,42 @@ function getCityData(cityName) {
     changeTempMode();
   }
 
-  return axios.get(apiCity).then((response) => {
-    dateInCity(response);
-    timeInCity(response);
-    setDateTime(formattedDay, formattedTime);
-    showTodayWeather(response);
-  });
-  // .catch(function (error) {
-  //   if (error.response) {
-  //     // The request was made and the server responded with a status code
-  //     // that falls out of the range of 2xx
-  //     console.log(error.response.data);
-  //     console.log(error.response.status);
-  //     console.log(error.response.headers);
-  //   } else if (error.request) {
-  //     // The request was made but no response was received
-  //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-  //     // http.ClientRequest in node.js
-  //     console.log(error.request);
-  //   } else {
-  //     // Something happened in setting up the request that triggered an Error
-  //     console.log("Error", error.message);
-  //   }
-  //   console.log(error.config);
-  // }); //потрібно більш чітко відловлювати помилки
+  return axios
+    .get(apiCity)
+    .then((response) => {
+      cleanErrorContainer(); // !!!!!!!!!!!!!!!!!!!!!
+      dateInCity(response);
+      timeInCity(response);
+      setDateTime(formattedDay, formattedTime);
+      showTodayWeather(response);
+    })
+    .catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        let errorCityDoesntExist = error.response.data.message;
+        let errorContainer = document.getElementById(
+          "error-container-for-search"
+        );
+        errorContainer.innerHTML = `Sorry, but ${errorCityDoesntExist}. Check city and retry`;
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }); //потрібно більш чітко відловлювати помилки
+}
+
+function cleanErrorContainer() {
+  let errorContainer = document.getElementById("error-container-for-search");
+  errorContainer.innerHTML = "";
 }
 
 //функція визначення дати для міста з пошуку
