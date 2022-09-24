@@ -35,7 +35,6 @@ h2 {
   align-self: flex-end;
   margin: 0 0 2px 0;
   font-size: 40px;
-  padding: 0;
   text-transform: uppercase;
   color: #5a6275;
 }
@@ -167,7 +166,7 @@ span.switchTemp {
 .today-description-container {
   display: flex;
   flex-direction: row;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 .celsius {
